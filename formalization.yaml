@@ -1,0 +1,131 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mathlib-initiative/formalization.yaml/main/schema/formalization.schema.json
+version: "v0.4"
+
+project:
+  name: "Area stability of planar plank covers and Bezdek's annulus theorem"
+  description: >-
+    A complete Lean 4 formalization of Bezdek's annulus theorem and the
+    quantitative area stability of planar plank covers based on the paper
+    "Area stability of plank covers" by Egor Bakaev and Amir Yehudayoff
+    (arXiv:2609.30409). The formalization proves that there exists an
+    explicit positive radius r > 0 such that if finitely many planar planks
+    cover the closed annulus r <= ||x|| <= 1, their total width is at
+    least 2. The core theorem established is the quantitative overlap
+    theorem, which bounds the excess overlap cost on the unit disk from
+    below by a positive constant times the hole area divided by r.
+  authors:
+    - "Arseniy Akopyan"
+  responsible_maintainers:
+    - "Arseniy Akopyan"
+  license: "Apache-2.0"
+
+classification:
+  arxiv: ["math.MG", "math.CO"]
+  msc2020: ["52C10", "52A10", "52A38"]
+
+sources:
+  - title: "Area stability of plank covers"
+    authors:
+      - "Egor Bakaev"
+      - "Amir Yehudayoff"
+    type: "article"
+    id: "arXiv:2609.30409"
+    location: "arXiv:2609.30409"
+    relationship: "formalizes"
+    author_endorsement: "not-contacted"
+    note: >-
+      Formalization of Egor Bakaev and Amir Yehudayoff's paper from arXiv
+      (arXiv:2609.30409), proving the area stability of plank covers and
+      resolving Bezdek's annulus problem.
+  - title: "Covering an Annulus by Strips"
+    authors:
+      - "Andras Bezdek"
+    type: "paper"
+    id: "doi:10.1007/s00454-003-0002-y"
+    location: "Discrete & Computational Geometry 30 (2003), no. 2, 177-180"
+    relationship: "background"
+    author_endorsement: "not-contacted"
+    note: >-
+      The original problem formulation: whether there exists r > 0 such that
+      any collection of planks covering the annulus r <= ||x|| <= 1 has total
+      width at least 2.
+
+related_formalizations: []
+
+status:
+  scope: >-
+    Complete formalization of Bezdek's annulus theorem and the quantitative
+    overlap theorem in the plane. The comparator challenge `bezdek_annulus`
+    and the library theorems `Annulus.overlap_theorem` and
+    `Annulus.bezdek_annulus'` are proved with no sorries, using only the
+    standard axioms `propext`, `Classical.choice`, and `Quot.sound`.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: ["propext", "Classical.choice", "Quot.sound"]
+  main_results:
+    - declaration: "bezdek_annulus"
+      file: "Solution.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+      comparator_config: "comparator.json"
+    - declaration: "Annulus.overlap_theorem"
+      file: "RequestProject/Overlap/Main.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+    - declaration: "Annulus.bezdek_annulus'"
+      file: "RequestProject/Overlap/Main.lean"
+      sorry_count: 0
+      axioms: ["propext", "Classical.choice", "Quot.sound"]
+
+automation:
+  methods:
+    - method: "agent"
+      models: ["Aristotle (Harmonic)", "Gemini", "ChatGPT"]
+      framework: "Aristotle"
+      tool_setup: >-
+        Formalized by Arseniy Akopyan with the help of Aristotle (Harmonic)
+        for automated theorem proving and formalizing the quantitative
+        reconstruction of Bakaev's arXiv paper. Gemini and ChatGPT were also
+        used for code synthesis, toolchain upgrade to the latest Lean,
+        and preparation of the Palomar registry submission.
+      cost:
+        wall_time: "not tracked"
+        spend_usd: "not tracked"
+        hardware: "local machine and cloud API"
+      prompting_notes: >-
+        Guided by the quantitative reconstruction of Bakaev-Yehudayoff.
+  spend_usd: "not tracked"
+  notes: >-
+    The formalization was developed by Arseniy Akopyan using Aristotle,
+    Gemini, and ChatGPT, and is fully verified by Lean 4 kernel and Mathlib.
+
+fidelity:
+  divergences: "none known"
+
+review:
+  status: "self-assessed"
+  reviewers:
+    - "Arseniy Akopyan"
+  notes: >-
+    Statement verified field-by-field against Bakaev-Yehudayoff (arXiv:2609.30409).
+    Proofs checked with Lean 4 kernel with no sorries outside Challenge.lean.
+
+alignment:
+  namespace: ""
+  statements:
+    - source: "Theorem 1.1 (Bezdek's annulus theorem)"
+      lean: "bezdek_annulus"
+      module: "Solution"
+      status: "proved"
+      note: >-
+        Proves there exists r > 0 such that every finite plank cover of the
+        annulus r <= ||x|| <= 1 has total width at least 2.
+    - source: "Theorem 2.1 (Quantitative overlap theorem)"
+      lean: "Annulus.overlap_theorem"
+      module: "RequestProject.Overlap.Main"
+      status: "proved"
+      note: >-
+        Proves the quantitative overlap theorem with an explicit constant.
+
+acknowledgements: >-
+  Harmonic's Aristotle, Gemini, and ChatGPT; Lean 4 and Mathlib communities.
